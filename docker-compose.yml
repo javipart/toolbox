@@ -1,0 +1,21 @@
+version: '2.4'
+
+services:
+# API
+  api:
+    container_name: toolbox-api
+    build:
+      context: api
+    ports:
+      - "3001:3001"
+    restart: always
+# Web
+  web:
+    container_name: toolbox-web
+    build:
+      context: web
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    restart: always

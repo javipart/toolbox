@@ -103,12 +103,14 @@ const fetchFiles = async () => {
   }
 }
 
-const fetchFilesData = async () => {
+const fetchFilesData = async (filter = null) => {
   try {
-    const cachedData = getCachedData('processedFiles');
+    const cachedData = await getCachedData('processedFiles');
     console.log(cachedData)
-    if (cachedData) {
-      console.log('Using Caché');
+    if (cachedData?.length) {
+      if (filter) {
+        return cachedData.filter(fileData => fileData.file === `${filter}.csv`);
+      }
       return cachedData;
     }
 
@@ -120,11 +122,6 @@ const fetchFilesData = async () => {
       limit(async () => {
         try {
           const filePath = await downloadFile(fileName);
-
-          if (!hasFileChanged(fileName, filePath, hashCache)) {
-            console.log(`File ${fileName} has not changed.`);
-            return null;
-          }
 
           const lines = await processFile(filePath);
 
@@ -147,6 +144,10 @@ const fetchFilesData = async () => {
     saveHashCache(hashCache);
 
     setCachedData('processedFiles', fileData);
+
+    if (filter) {
+      return fileData.filter(file => file.file === `${filter}.csv`);
+    }
     return fileData;
   } catch (error) {
     throw new Error(`Error fetching files: ${error.message}`)

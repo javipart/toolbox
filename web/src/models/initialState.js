@@ -3,6 +3,7 @@ const transactions = {
       all: [],
       filter: '',
       loading: false,
+      list: [],
     }
   }
   

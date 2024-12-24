@@ -10,6 +10,8 @@ const filesReducer = (state = initialState.files, action = {}) => {
       return { ...state, loading: action.value };
     case ACTIONS.FILES.FILTER: 
       return { ...state, filter: action.value };
+    case ACTIONS.FILES.GET_LIST:
+      return { ...state, list: action.data };
     default:
       return state;
   }

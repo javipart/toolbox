@@ -18,6 +18,12 @@ const doesFileExist = (fileName) => {
 
 const downloadFile = async (fileName) => {
   const filePath = path.join(TEMP_DIR, fileName);
+
+  if (doesFileExist(fileName)) {
+    console.log(`File ${fileName} exists`);
+    return filePath;
+  }
+
   const writer = fs.createWriteStream(filePath);
 
   try {

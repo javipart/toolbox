@@ -1,13 +1,23 @@
-import { fetchFilesData } from '../services/file.service.js'; 
+import { fetchFilesData, fetchFiles } from '../services/file.service.js'
 
 const getFileData = async (req, res) => {
   try {
-    const data = await fetchFilesData();
-    res.status(200).json(data);
+    const data = await fetchFilesData()
+    res.status(200).json(data)
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error(error.message)
+    res.status(500).json({ error: 'Internal Server Error' })
   }
-};
+}
 
-export { getFileData };
+const getFileList = async (req, res) => {
+  try {
+    const data = await fetchFiles()
+    res.status(200).json(data)
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
+}
+
+export { getFileData, getFileList }

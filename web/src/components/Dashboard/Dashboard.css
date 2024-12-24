@@ -1,0 +1,27 @@
+.table-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+
+.table-responsive {
+  margin-top: 20px;
+}
+
+.table-light th {
+  background-color: #f8f9fa !important;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    padding: 10px;
+  }
+}

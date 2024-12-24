@@ -8,6 +8,8 @@ const filesReducer = (state = initialState.files, action = {}) => {
       return { ...state, all: data };
     case ACTIONS.FILES.SET_LOADING_FILES:
       return { ...state, loading: action.value };
+    case ACTIONS.FILES.FILTER: 
+      return { ...state, filter: action.value };
     default:
       return state;
   }

@@ -1,8 +1,10 @@
-import express from 'express';
-import { getFileData } from '../controllers/file.controller.js';
+import express from 'express'
+import { getFileData, getFileList } from '../controllers/file.controller.js'
 
-const router = express.Router();
+const router = express.Router()
 
-router.get('/data', getFileData);
+router.get('/data', getFileData)
 
-export default router;
+router.get('/list', getFileList)
+
+export default router

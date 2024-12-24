@@ -2,7 +2,7 @@ import { fetchFilesData, fetchFiles } from '../services/file.service.js'
 
 const getFileData = async (req, res) => {
   try {
-    const { fileName } = req.query;
+    const { fileName } = req.query
     const data = await fetchFilesData(fileName)
     res.status(200).json(data)
   } catch (error) {

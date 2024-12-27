@@ -1,10 +1,9 @@
-import express from 'express'
-import { getFileData, getFileList } from '../controllers/file.controller.js'
+const express = require('express')
+const { getFileData, getFileList } = require('../controllers/file.controller')
 
 const router = express.Router()
 
 router.get('/data', getFileData)
-
 router.get('/list', getFileList)
 
-export default router
+module.exports = router

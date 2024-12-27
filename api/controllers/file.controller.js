@@ -1,4 +1,4 @@
-import { fetchFilesData, fetchFiles } from '../services/file.service.js'
+const { fetchFilesData, fetchFiles } = require('../services/file.service')
 
 const getFileData = async (req, res) => {
   try {
@@ -21,4 +21,4 @@ const getFileList = async (req, res) => {
   }
 }
 
-export { getFileData, getFileList }
+module.exports = { getFileData, getFileList }

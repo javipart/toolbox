@@ -1,11 +1,16 @@
-import axios from 'axios'
-import csv from 'csv-parser'
-import fs from 'fs'
-import path from 'path'
-import pLimit from 'p-limit'
-import { BASE_URL, LIMIT, TEMP_DIR, API_KEY } from '../utils/constants.js'
-import { getCachedData, setCachedData } from '../utils/cache.js'
-import crypto from 'crypto'
+const axios = require('axios')
+const csv = require('csv-parser')
+const fs = require('fs')
+const path = require('path')
+const { BASE_URL, LIMIT, TEMP_DIR, API_KEY } = require('../utils/constants')
+const { getCachedData, setCachedData } = require('../utils/cache')
+const crypto = require('crypto')
+let pLimit;
+
+(async () => {
+  const module = await import('p-limit')
+  pLimit = module.default
+})()
 
 if (!fs.existsSync(TEMP_DIR)) {
   fs.mkdirSync(TEMP_DIR)
@@ -27,11 +32,6 @@ const saveHashCache = (hashes) => {
 const calculateFileHash = (filePath) => {
   const fileBuffer = fs.readFileSync(filePath)
   return crypto.createHash('md5').update(fileBuffer).digest('hex')
-}
-
-const hasFileChanged = (fileName, filePath, hashCache) => {
-  const currentHash = calculateFileHash(filePath)
-  return hashCache[fileName] !== currentHash
 }
 
 const doesFileExist = (fileName) => {
@@ -106,7 +106,7 @@ const fetchFiles = async () => {
 const fetchFilesData = async (filter = null) => {
   try {
     const cachedData = await getCachedData('processedFiles')
-    console.log(cachedData)
+    console.log({ cachedData })
     if (cachedData?.length) {
       if (filter) {
         return cachedData.filter(fileData => fileData.file === `${filter}.csv`)
@@ -116,7 +116,12 @@ const fetchFilesData = async (filter = null) => {
 
     const hashCache = getHashCache()
     const limit = pLimit(LIMIT)
-    const files = await fetchFiles()
+    let files
+    try {
+      files = await fetchFiles()
+    } catch (error) {
+      throw new Error(`Error fetching files: ${error.message}`)
+    }
 
     const filePromises = files.map((fileName) =>
       limit(async () => {
@@ -169,7 +174,7 @@ const revalidateFiles = async () => {
         const newHash = calculateFileHash(tempFilePath)
 
         if (hashCache[fileName] === newHash) {
-          console.log(`File ${fileName} not changed. Skiping.`)
+          console.log(`File ${fileName} not changed. Skipping.`)
           fs.unlinkSync(tempFilePath)
           return
         }
@@ -192,4 +197,4 @@ const revalidateFiles = async () => {
   }
 }
 
-export { fetchFilesData, fetchFiles, revalidateFiles }
+module.exports = { fetchFilesData, fetchFiles, revalidateFiles }

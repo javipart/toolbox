@@ -1,5 +1,5 @@
-import cron from 'node-cron'
-import { revalidateFiles } from '../services/file.service.js'
+const cron = require('node-cron')
+const { revalidateFiles } = require('../services/file.service')
 
 const filesValidationCron = () => {
   cron.schedule('0 * * * *', async () => {
@@ -13,4 +13,4 @@ const filesValidationCron = () => {
   })
 }
 
-export default filesValidationCron
+module.exports = filesValidationCron

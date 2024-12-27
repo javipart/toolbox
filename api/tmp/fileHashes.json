@@ -1,0 +1,17 @@
+{
+  "processedFiles": [
+    {
+      "file": "file1.csv",
+      "lines": [
+        {
+          "text": "test",
+          "number": "1",
+          "hex": "abcdef1234567890abcdef1234567890"
+        }
+      ]
+    }
+  ],
+  "test2.csv": "d112047b9298aefc92ede32ed5f3401c",
+  "test3.csv": "e4041aa511b79ac9ee6b29a70b59a917",
+  "test9.csv": "d61f158cf552f2c795693ba07764cc58"
+}

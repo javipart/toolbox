@@ -1,6 +1,5 @@
 const dotenv = require('dotenv')
 
-// Configura las variables de entorno
 dotenv.config()
 
 const API_KEY = process.env.API_KEY || ''

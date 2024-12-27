@@ -7,7 +7,6 @@ const startCronJobs = require('./utils/cron')
 const app = express()
 const PORT = 3001
 
-// Middleware
 app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
@@ -17,13 +16,10 @@ app.use((req, res, next) => {
   next()
 })
 
-// Iniciar trabajos cron
 startCronJobs()
 
-// Rutas
 app.use('/files', fileRoutes)
 
-// Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)
 })

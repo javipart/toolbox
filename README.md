@@ -8,6 +8,9 @@ Proyecto desarrollado con JavaScript
 ## Despliegue en Local
 
 - Clonar el Proyecto
+- Para `/api` se debe crear el archivo `.env` y añadir las siguientes variables de Entorno:
+`API_KEY=Bearer aSuperSecretKey`
+`EXTERNAL_API=https://echo-serv.tbxnet.com/v1/secret`
 - Se puede desplegar ingresando a cada carpeta `/api` y `/web` y en cada una usar el comando `npm start`.
 - También se puede hacer ingresando el comando `docker-compose up --build -d` para desplegar los 2 servicios de forma sencilla.
 - Ingresar, desde el navegador, a `http://localhost:3000/`.
